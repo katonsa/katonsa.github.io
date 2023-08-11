@@ -4,7 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Katon Atmaja - Back-end Developer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* Mini game Tic-Tac-Toe styles */
+    .tic-tac-toe {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 2px;
+      width: 300px;
+      height: 300px;
+      margin: auto;
+      border: 2px solid #333;
+    }
+    .tic-tac-toe-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: bold;
+      background-color: #f2f2f2;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      line-height: 1;
+      height: 100%;
+    }
+    .tic-tac-toe-cell:hover {
+      background-color: #d3d3d3;
+    }
+  </style>
 </head>
 <body class="bg-gray-100">
   <header class="bg-blue-600 text-white p-4">
@@ -78,6 +106,17 @@
     </div>
   </section>
 
+  <!-- Mini game Tic-Tac-Toe -->
+  <section id="tic-tac-toe" class="py-16 bg-white px-4 md:px-0">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Mini Game Tic-Tac-Toe</h1>
+      <div class="tic-tac-toe" id="tic-tac-toe-container"></div>
+    </div>
+    <div class="container mx-auto text-center mt-2">
+      <p id="tic-tac-toe-turn-text" class="hidden">Computer turn...</p>
+    </div>
+  </section>
+
   <footer class="bg-blue-600 text-white p-4 mt-8">
     <div class="container mx-auto text-center">
       <p>&copy; 2023 Katon Atmaja. Dibuat dengan &#x2764;&#xfe0f; oleh ChatGPT.</p>
@@ -88,6 +127,135 @@
     document.getElementById("menu-toggle").addEventListener("click", function() {
       document.getElementById("mobile-menu").classList.toggle("hidden");
     });
+
+    const ticTacToeContainer = document.getElementById('tic-tac-toe-container');
+    const cells = Array.from({ length: 9 }, () => document.createElement('div'));
+    let currentPlayer = 'X';
+
+    cells.forEach((cell, index) => {
+      cell.classList.add('tic-tac-toe-cell');
+      cell.addEventListener('click', () => makeMove(index));
+      ticTacToeContainer.appendChild(cell);
+    });
+
+    function makeMove(index) {
+      if (!cells[index].textContent) {
+        cells[index].textContent = currentPlayer;
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        const winner = checkWinner();
+        if (winner) {
+          showWinner(winner);
+          return;
+        }
+        if (currentPlayer === 'O') {
+          document.getElementById('tic-tac-toe-turn-text').classList.remove('hidden')
+          setTimeout(makeAIMove, 500);
+        }
+      }
+    }
+
+    function makeAIMove() {
+      const availableMoves = cells.reduce((acc, cell, index) => {
+        if (!cell.textContent) {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
+
+      let bestScore = -Infinity;
+      let bestMove;
+
+      for (const move of availableMoves) {
+        cells[move].textContent = 'O';
+        const score = minimax(cells, 0, false);
+        cells[move].textContent = ''; // Reset langkah
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = move;
+        }
+      }
+
+      makeMove(bestMove);
+      document.getElementById('tic-tac-toe-turn-text').classList.add('hidden')
+    }
+
+    const scores = {
+      X: -1,
+      O: 1,
+      tie: 0
+    };
+
+    function minimax(board, depth, isMaximizing) {
+      const result = checkWinner();
+      if (result !== null) {
+        return scores[result];
+      }
+
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (board[i].textContent === '') {
+            board[i].textContent = 'O';
+            const score = minimax(board, depth + 1, false);
+            board[i].textContent = ''; // Reset langkah
+            bestScore = Math.max(bestScore, score);
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (board[i].textContent === '') {
+            board[i].textContent = 'X';
+            const score = minimax(board, depth + 1, true);
+            board[i].textContent = ''; // Reset langkah
+            bestScore = Math.min(bestScore, score);
+          }
+        }
+        return bestScore;
+      }
+    }
+
+    function checkWinner() {
+      const winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertical
+        [0, 4, 8], [2, 4, 6]           // Diagonal
+      ];
+
+      for (const combination of winningCombinations) {
+        const [a, b, c] = combination;
+        if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
+          return cells[a].textContent;
+        }
+      }
+
+      const availableMoves = cells.some(cell => !cell.textContent);
+      if (!availableMoves) {
+        return 'tie';
+      }
+
+      return null;
+    }
+
+    function showWinner(winner) {
+      Swal.fire({
+        title: `Pemenang: ${winner}`,
+        text: 'Selamat! Anda telah memenangkan permainan.',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      }).then(() => {
+        resetGame();
+      });
+    }
+
+    function resetGame() {
+      cells.forEach(cell => {
+        cell.textContent = '';
+      });
+      currentPlayer = 'X';
+    }
   </script>
 </body>
 </html>

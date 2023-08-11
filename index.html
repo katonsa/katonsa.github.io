@@ -10,16 +10,29 @@
   <header class="bg-blue-600 text-white p-4">
     <nav class="container mx-auto flex justify-between items-center">
       <div class="text-xl font-bold">Katon Atmaja</div>
-      <ul class="space-x-4">
+      <ul class="space-x-4 hidden md:flex">
         <li><a href="#about" class="hover:underline">Tentang Saya</a></li>
         <li><a href="#skills" class="hover:underline">Kemampuan</a></li>
         <li><a href="#projects" class="hover:underline">Proyek-Proyek</a></li>
-        <li><a href="#contact" class="hover:underline">Kontak</a></li>
+        <li><a href="#contact" class="hover:underline pulse-button">Kontak</a></li>
       </ul>
+      <div class="md:hidden relative">
+        <button id="menu-toggle" class="block text-white focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <div id="mobile-menu" class="hidden absolute top-10 right-0 bg-white text-gray-800 w-48 py-2 px-4 rounded shadow">
+          <a href="#about" class="block py-1 hover:bg-blue-100">Tentang Saya</a>
+          <a href="#skills" class="block py-1 hover:bg-blue-100">Kemampuan</a>
+          <a href="#projects" class="block py-1 hover:bg-blue-100">Proyek-Proyek</a>
+          <a href="#contact" class="block py-1 hover:bg-blue-100">Kontak</a>
+        </div>
+      </div>
     </nav>
   </header>
 
-  <section id="about" class="py-16">
+  <section id="about" class="py-16 px-4 md:px-0">
     <div class="container mx-auto">
       <h1 class="text-3xl font-bold mb-4">Tentang Saya</h1>
       <p class="text-gray-700">Saya adalah seorang Back-end Developer dengan kecintaan terhadap pemrograman dan pengembangan solusi teknologi. Dengan pengalaman dalam membangun sistem dan layanan berbasis web, saya memiliki kemampuan untuk menghadirkan solusi efisien dan andal dalam pengembangan perangkat lunak.</p>
@@ -27,7 +40,7 @@
   </section>
 
   <!-- Bagian Kemampuan -->
-  <section id="skills" class="py-16 bg-white">
+  <section id="skills" class="py-16 bg-white px-4 md:px-0">
     <div class="container mx-auto">
       <h1 class="text-3xl font-bold mb-4">Kemampuan</h1>
       <ul class="list-disc list-inside text-gray-700">
@@ -41,7 +54,7 @@
   </section>
 
   <!-- Bagian Proyek-Proyek -->
-  <section id="projects" class="py-16">
+  <section id="projects" class="py-16 px-4 md:px-0">
     <div class="container mx-auto">
       <h1 class="text-3xl font-bold mb-4">Proyek-Proyek</h1>
       <div class="space-y-4">
@@ -58,7 +71,7 @@
   </section>
 
   <!-- Bagian Kontak -->
-  <section id="contact" class="py-16 bg-gray-200">
+  <section id="contact" class="py-16 bg-gray-200 px-4 md:px-0">
     <div class="container mx-auto">
       <h1 class="text-3xl font-bold mb-4">Kontak</h1>
       <p class="text-gray-700">Jika Anda tertarik untuk bekerja sama atau memiliki pertanyaan, silakan hubungi saya melalui email di <a href="mailto:saya@katon.dev" class="text-blue-600 hover:underline">saya@katon.dev</a>.</p>
@@ -70,5 +83,11 @@
       <p>&copy; 2023 Katon Atmaja. Dibuat dengan &#x2764;&#xfe0f; oleh ChatGPT.</p>
     </div>
   </footer>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
 </body>
 </html>

@@ -1,11 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katon Atmaja - Back-end Developer</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    Body
+<body class="bg-gray-100">
+  <header class="bg-blue-600 text-white p-4">
+    <nav class="container mx-auto flex justify-between items-center">
+      <div class="text-xl font-bold">Katon Atmaja</div>
+      <ul class="space-x-4">
+        <li><a href="#about" class="hover:underline">Tentang Saya</a></li>
+        <li><a href="#skills" class="hover:underline">Kemampuan</a></li>
+        <li><a href="#projects" class="hover:underline">Proyek-Proyek</a></li>
+        <li><a href="#contact" class="hover:underline">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="about" class="py-16">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Tentang Saya</h1>
+      <p class="text-gray-700">Saya adalah seorang Back-end Developer dengan kecintaan terhadap pemrograman dan pengembangan solusi teknologi. Dengan pengalaman dalam membangun sistem dan layanan berbasis web, saya memiliki kemampuan untuk menghadirkan solusi efisien dan andal dalam pengembangan perangkat lunak.</p>
+    </div>
+  </section>
+
+  <!-- Bagian Kemampuan -->
+  <section id="skills" class="py-16 bg-white">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Kemampuan</h1>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>Pengembangan Back-end</li>
+        <li>Pemrograman PHP, Node.js</li>
+        <li>Manajemen Basis Data</li>
+        <li>API Development</li>
+        <li>Keamanan Informasi</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Bagian Proyek-Proyek -->
+  <section id="projects" class="py-16">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Proyek-Proyek</h1>
+      <div class="space-y-4">
+        <div class="bg-white p-4 rounded shadow">
+          <h2 class="text-xl font-semibold">Nama Proyek 1</h2>
+          <p class="text-gray-700">Deskripsi singkat mengenai proyek 1.</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h2 class="text-xl font-semibold">Nama Proyek 2</h2>
+          <p class="text-gray-700">Deskripsi singkat mengenai proyek 2.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bagian Kontak -->
+  <section id="contact" class="py-16 bg-gray-200">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Kontak</h1>
+      <p class="text-gray-700">Jika Anda tertarik untuk bekerja sama atau memiliki pertanyaan, silakan hubungi saya melalui email di <a href="mailto:saya@katon.dev" class="text-blue-600 hover:underline">saya@katon.dev</a>.</p>
+    </div>
+  </section>
+
+  <footer class="bg-blue-600 text-white p-4 mt-8">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2023 Katon Atmaja. Dibuat dengan &#x2764;&#xfe0f; oleh ChatGPT.</p>
+    </div>
+  </footer>
 </body>
 </html>
